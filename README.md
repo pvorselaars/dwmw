@@ -1,6 +1,8 @@
-# dwm-win32 - a Microsoft Windows port of the X11 dwm(1)
+# dwmw - dynamic windows manager for windows
 
-dwm-win32 is a port of the well known [X11](https://www.x.org) window
+a fork of [github.com/martanne/dwm-win32](https://github.com/martanne/dwm-win32)
+
+dwmw is a port of the well known [X11](https://www.x.org) window
 manager [dwm](https://dwm.suckless.org/) to the Microsoft Windows
 platform.
 
@@ -9,20 +11,6 @@ and the principle of [dynamic window management](https://suckless.org/philosophy
 to Windows systems.
 
 ![dwm-win32 screenshot](https://www.brain-dump.org/projects/dwm-win32/screenshot.png#center)
-
-## News
-
-**Warning: I no longer actively use and develop dwm-win32.**
-
- - [dwm-win32-alpha2](https://lists.suckless.org/dwm/0904/7891.html) (21.04.2009)
-   [tar.gz](https://www.brain-dump.org/projects/dwm-win32/dwm-win32-alpha2.tar.gz)
-   [zip](https://www.brain-dump.org/projects/dwm-win32/dwm-win32-alpha2.zip)
-   [exe](https://www.brain-dump.org/projects/dwm-win32/dwm-win32-alpha2.exe)
-
- - [dwm-win32-alpha1](https://lists.suckless.org/dwm/0903/7775.html) (21.03.2009)
-   [tar.gz](https://www.brain-dump.org/projects/dwm-win32-alpha1.tar.gz)
-   [zip](https://www.brain-dump.org/projects/dwm-win32-alpha1.zip)
-   [exe](https://www.brain-dump.org/projects/dwm-win32-alpha1.exe)
 
 ## Description
 
@@ -52,24 +40,10 @@ corner.
 
 dwm draws a small border around windows to indicate the focus state.
 
-## Installation
-
-Either use the pre compiled exe files or download the source
-and compile it with [MinGW](http://www.mingw.org/) and
-[MSYS](http://www.mingw.org/wiki/MSYS).
-
-    $EDITOR config.mk
-    $EDITOR config.h
-    make
-    make install
-
-You should now be able to start `dwm-win32`, redirect stderr to a file
-if you want to see when something goes wrong.
-
 ## Configuration
 
 The configuration of dwm-win32 is done by creating a custom `config.h` and
-(re)compiling the source code. See the default `config.h` as an example,
+(re)compiling the source code. See the default `config.def.h` as an example,
 adapting it to your preference should be straightforward. You basically
 define a set of layouts and keys which dwm-win32 will use. There are
 some pre defined macros to ease configuration.
@@ -115,8 +89,6 @@ dwm uses a modifier key (denoted by `MOD`) which defaults to `CTRL + ALT`.
 
  - `MOD + i` Display classname of currently focused window, useful
     for wiriting tagging rules.
-
- - `MOD + Tab` Toggles to the previously selected tags.
 
  - `MOD + Shift + [1..n]` Apply nth tag to focused window.
 
@@ -169,13 +141,10 @@ DLL which will be loaded into each process address space.
 ## Development
 
 You can always fetch the current code base from the git repository
-located at [Github](https://github.com/martanne/dwm-win32/) or
-[Sourcehut](https://git.sr.ht/~martanne/dwm-win32).
+located at [Github](https://github.com/pvorselaars/dwmw/)
 
 If you have comments, suggestions, ideas, a bug report, a patch or
-something else related to dwm-win32 then write to the
-[suckless developer mailing list](https://suckless.org/community)
-or contact me directly.
+something else related to dwmw contact me directly.
 
 ## Related
 
@@ -187,5 +156,5 @@ Below are some links which are in one way or another related to dwm-win32.
 
 ## License
 
-dwm-win32 obviously reuses some code of dwm and is released under the same
-[MIT/X11 license](https://raw.githubusercontent.com/martanne/dwm-win32/master/LICENSE.txt).
+dwmw obviously reuses some code of dwm and dwm-win32 and is released under the same
+[MIT/X11 license](https://raw.githubusercontent.com/pvorselaars/dwmw/master/LICENSE.txt).
