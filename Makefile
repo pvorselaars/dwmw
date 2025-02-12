@@ -2,21 +2,16 @@
 # See LICENSE file for copyright and license details.
 
 CC      = cl
-CFLAGS  = /c /Wall
-LDFLAGS = user32.lib shell32.lib gdi32.lib /link
+CFLAGS  = /Wall user32.lib shell32.lib gdi32.lib
 
-SRC = dwm-win32.c
+SRC = dwmw.c
 EXE = ${SRC:.c=.exe}
 OBJ = ${SRC:.c=.obj}
 
-${EXE}: ${OBJ}
-	${CC} ${OBJ} ${LDFLAGS}
-
-%.obj: %.c
+${EXE}: ${SRC}
 	${CC} ${CFLAGS} $<
 
 debug: CFLAGS += /Zi /DDEBUG
-debug: LDFLAGS += /debug
 debug: ${EXE}
 
 config.h:

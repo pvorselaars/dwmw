@@ -2,4 +2,7 @@
 *.obj
 *.pdb
 *.ilk
+*.dll
+*.lib
+*.exp
 config.h

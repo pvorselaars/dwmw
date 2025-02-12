@@ -178,6 +178,7 @@ static Client *sel = NULL;
 static Client *stack = NULL;
 static Layout *lt[] = { NULL, NULL };
 static UINT shellhookid;	/* Window Message id */
+static HHOOK hookHandle;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -294,6 +295,8 @@ cleanup() {
 		unmanage(stack);
 
 	SetSysColors(LENGTH(colorwinelements), colorwinelements, colors[0]); 
+
+	UnhookWindowsHookEx(hookHandle);
 
 	DestroyWindow(dwmhwnd);
 }
@@ -1293,6 +1296,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	MSG msg;
 
 	setup(hInstance);
+
+	HMODULE hookDll = LoadLibraryW(L"hook");
+	DWORD error = GetLastError();
+	HOOKPROC hookProc = (HOOKPROC)GetProcAddress(hookDll, "CBTProc");
+
+	hookHandle = SetWindowsHookExW(WH_CBT, hookProc, hookDll, 0);
 
 #ifdef DEBUG
 	AttachConsole(ATTACH_PARENT_PROCESS);
