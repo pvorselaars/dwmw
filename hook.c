@@ -8,8 +8,8 @@ __declspec(dllexport) LRESULT CALLBACK hookProc (int code, WPARAM wparam, LPARAM
 		dwmw = FindWindowW(L"dwmw", NULL);
 	}
 
-	if (code == HCBT_CREATEWND) {
-		SendNotifyMessageW(dwmw, HCBT_CREATEWND, wparam, lparam);
+	if (code == HCBT_ACTIVATE || code == HCBT_CREATEWND) {
+		SendNotifyMessageW(dwmw, code, wparam, lparam);
 	}
 
 	return CallNextHookEx(NULL, code, wparam, lparam);

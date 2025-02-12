@@ -793,7 +793,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			PostQuitMessage(0);
 			break;
 		case HCBT_CREATEWND:
-			debug("window created\n");
+			debug("window about to be created: %s\n", getclienttitle((HWND)wParam));
+			break;
+		case HCBT_ACTIVATE:
+			debug("window about to be activated: %s\n", getclienttitle((HWND)wParam));
 			break;
 		case WM_HOTKEY:
 			if (wParam >= 0 && wParam < LENGTH(keys)) {
@@ -1309,9 +1312,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 #ifdef DEBUG
 	AllocConsole();
-	freopen("CONOUT$", "w", stdout);
-	freopen("CONOUT$", "w", stderr);
-	fclose(stdin);
+  freopen("CONOUT$", "w", stdout);
+  freopen("CONOUT$", "w", stderr);
 #endif
 
 	while (GetMessage(&msg, NULL, 0, 0) > 0) {
