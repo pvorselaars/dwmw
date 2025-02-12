@@ -23,7 +23,7 @@
 #include <shellapi.h>
 #include <stdbool.h>
 
-#define NAME					"dwm-win32" 	/* Used for window name/class */
+#define NAME					"dwmw" 	/* Used for window name/class */
 
 /* macros */
 #define ISVISIBLE(x)            ((x)->tags & tagset[seltags])
@@ -792,6 +792,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
+		case HCBT_CREATEWND:
+			debug("window created\n");
+			break;
 		case WM_HOTKEY:
 			if (wParam >= 0 && wParam < LENGTH(keys)) {
 				keys[wParam].func(&(keys[wParam ].arg));
@@ -1298,13 +1301,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	setup(hInstance);
 
 	HMODULE hookDll = LoadLibraryW(L"hook");
-	DWORD error = GetLastError();
-	HOOKPROC hookProc = (HOOKPROC)GetProcAddress(hookDll, "CBTProc");
+	HOOKPROC hookProc = (HOOKPROC)GetProcAddress(hookDll, "hookProc");
 
 	hookHandle = SetWindowsHookExW(WH_CBT, hookProc, hookDll, 0);
 
+	FreeLibrary(hookDll);
+
 #ifdef DEBUG
-	AttachConsole(ATTACH_PARENT_PROCESS);
+	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
 	fclose(stdin);

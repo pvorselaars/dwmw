@@ -2,14 +2,20 @@
 # See LICENSE file for copyright and license details.
 
 CC      = cl
+LD      = link
+
 CFLAGS  = /Wall user32.lib shell32.lib gdi32.lib
+LDFLAGS = /dll user32.lib
 
-SRC = dwmw.c
-EXE = ${SRC:.c=.exe}
-OBJ = ${SRC:.c=.obj}
+EXE = dwmw.exe
+DLL = hook.dll
 
-${EXE}: ${SRC}
+${EXE}: ${EXE:.exe=.c} ${DLL}
 	${CC} ${CFLAGS} $<
+
+${DLL}: ${DLL:.dll=.c}
+	${CC} /c $<
+	${LD} ${LDFLAGS} ${DLL:.dll=.obj}
 
 debug: CFLAGS += /Zi /DDEBUG
 debug: ${EXE}
@@ -18,6 +24,6 @@ config.h:
 	cp config.def.h $@
 
 clean:
-	rm -f ${EXE} ${OBJ}
+	rm -f *.exe *.obj *.dll *.ilk *.exp *.pdb *.lib
 
 .PHONY: clean debug
